@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\lucam\OneDrive\Documentos\IDE\Eclipse\AxurChallenge\.metadata\.plugins\org.eclipse.jdt.core
+760091825.index
+1344284699.index
+1865797976.index

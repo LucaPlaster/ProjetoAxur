@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.Normalizer;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class AxurChallenge {
+
+	public static void main(String[] args) {
+		Locale.setDefault(new Locale("pt", "BR"));
+		Scanner sc = new Scanner(System.in);
+		String input;
+		 
+		String palavrasChave[] = new String[]{"black friday", "blackfriday", "promocao", "senha",};
+		
+		try {
+			 URL url = new URL(sc.next());
+			 BufferedReader buffer = new BufferedReader(new InputStreamReader(url.openStream()));
+			 input = buffer.readLine();
+			 
+			 while(input != null){
+				
+				 input = padronizaString(input); 
+				 input = input.toLowerCase();
+				 
+				 //System.out.println(input);
+				 //System.exit(0);
+				 
+				 for (int i=0;i<palavrasChave.length;i++) {
+	                    
+					 if (input.contains(palavrasChave[i])){
+						 System.out.println("Palavra: " + palavrasChave[i]);
+	                     System.out.println("Suspicious");
+	                     System.exit(0);
+	                 }
+				 }
+			 }
+			 
+			 System.out.println("Not Suspicious");
+			 
+		}catch (MalformedURLException error){
+            error.printStackTrace();
+		}catch (Exception error){
+            error.printStackTrace(); 
+        }
+		
+		sc.close();
+		
+	}
+	
+	public static String padronizaString(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
+
+}

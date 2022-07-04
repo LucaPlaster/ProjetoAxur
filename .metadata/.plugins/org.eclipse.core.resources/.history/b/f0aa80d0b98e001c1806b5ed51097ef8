@@ -1,0 +1,51 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.Normalizer;
+import java.util.Locale;
+
+public class AxurChallenge {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(new Locale("pt", "BR"));
+		String input = "";
+		 
+		String palavrasChave[] = {"promocao", "promoaao", "black friday", "blackfriday",  "senha",};
+		
+		try {
+			 URL url = new URL(args[0]);
+			 BufferedReader buffer = new BufferedReader(new InputStreamReader(url.openStream()));
+			 
+			 while((input = buffer.readLine()) != null){
+				 
+				 input = padronizaString(input); 
+				 input = input.toLowerCase();
+				 
+				 for (int i=0;i<palavrasChave.length;i++) {
+	                  
+					 //System.out.println("Palavra teste: " + palavrasChave[i]);
+					 if (input.contains(palavrasChave[i])){
+						 System.out.println("Palavra: " + palavrasChave[i]);
+	                     System.out.println("Suspicious");
+	                     System.exit(0);
+	                 }
+				 }
+			 }
+			 
+			 System.out.println("Not Suspicious");
+			 
+		}catch (MalformedURLException error){
+            error.printStackTrace();
+		}catch (Exception error){
+            error.printStackTrace(); 
+        }
+		
+	}
+	
+	public static String padronizaString(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
+	
+}
